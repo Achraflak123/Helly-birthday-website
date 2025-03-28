@@ -118,10 +118,10 @@
   .wishing-well::-webkit-scrollbar-thumb {
     @apply bg-pink-200 rounded-full hover:bg-pink-300 transition-colors;
   }
-}
-
-.shimmer {
-  @apply bg-gradient-to-r from-transparent via-white to-transparent bg-[length:200%_100%] animate-shimmer;
+  
+  .shimmer {
+    @apply bg-gradient-to-r from-transparent via-white to-transparent bg-[length:200%_100%] animate-shimmer;
+  }
 }
 
 /* Parallax scroll animation */
