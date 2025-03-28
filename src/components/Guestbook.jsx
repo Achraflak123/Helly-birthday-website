@@ -8,6 +8,7 @@ const Guestbook = () => {
   const [name, setName] = useState('');
   const [message, setMessage] = useState('');
   const [wishes, setWishes] = useState([]);
+  const [isLoading, setIsLoading] = useState(false); // Added loading state
   const isMobile = useIsMobile();
 
   // Fetch wishes in descending order by timestamp
@@ -16,6 +17,7 @@ const Guestbook = () => {
     const q = query(wishesCollection, orderBy("time", "desc"));
     
     const unsubscribe = onSnapshot(q, (snapshot) => {
+      console.log("Wishes updated:", snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))); // Log data when updated
       setWishes(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
     });
     
@@ -24,15 +26,26 @@ const Guestbook = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("Form submitted", name, message); // Log form data
+
     if (name.trim() && message.trim()) {
-      // Save the wish with server-side timestamp
-      await addDoc(collection(db, "wishes"), {
-        name,
-        message,
-        time: serverTimestamp(),
-      });
-      setName('');
-      setMessage('');
+      setIsLoading(true);
+      try {
+        // Save the wish with server-side timestamp
+        await addDoc(collection(db, "wishes"), {
+          name,
+          message,
+          time: serverTimestamp(),
+        });
+        console.log("Wish added to Firestore");
+
+        setName('');
+        setMessage('');
+      } catch (error) {
+        console.error("Error adding wish: ", error);
+      } finally {
+        setIsLoading(false);
+      }
     }
   };
 
@@ -98,8 +111,9 @@ const Guestbook = () => {
               <button
                 type="submit"
                 className="w-full bg-gradient-to-r from-pink-500 to-purple-500 text-white font-bold py-2 sm:py-3 px-4 sm:px-6 rounded-lg hover:opacity-90 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1 flex items-center justify-center"
+                disabled={isLoading}
               >
-                <span>Send Birthday Wish</span>
+                {isLoading ? "Sending..." : "Send Birthday Wish"}
                 <SendHorizonal className="ml-2 h-5 w-5" />
               </button>
             </form>
