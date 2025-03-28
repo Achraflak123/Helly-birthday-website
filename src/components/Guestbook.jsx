@@ -29,25 +29,30 @@ const Guestbook = () => {
     console.log("Form submitted", name, message); // Log form data
 
     if (name.trim() && message.trim()) {
-      setIsLoading(true);
-      try {
-        // Save the wish with server-side timestamp
-        await addDoc(collection(db, "wishes"), {
-          name,
-          message,
-          time: serverTimestamp(),
-        });
-        console.log("Wish added to Firestore");
+        try {
+            console.log("Attempting to add wish to Firestore");
 
-        setName('');
-        setMessage('');
-      } catch (error) {
-        console.error("Error adding wish: ", error);
-      } finally {
-        setIsLoading(false);
-      }
+            // Save the wish with server-side timestamp
+            const docRef = await addDoc(collection(db, "wishes"), {
+                name,
+                message,
+                time: serverTimestamp(),
+            });
+
+            console.log("Wish added to Firestore with ID:", docRef.id);  // Log the document ID after submission
+
+            // Reset form after successful submission
+            setName('');
+            setMessage('');
+        } catch (error) {
+            // Log the error if something goes wrong
+            console.error("Error adding wish: ", error);
+        }
+    } else {
+        console.log("Form data is invalid");
     }
   };
+
 
   return (
     <section style={{ marginTop: "2rem", paddingTop: "3rem" }} id="guestbook" className="py-16 md:py-20 relative overflow-hidden">
@@ -137,11 +142,15 @@ const Guestbook = () => {
                     <p className="text-gray-700 my-2">{wish.message}</p>
                     <div className="text-xs text-gray-500 flex items-center">
                       <Heart className="h-3 w-3 mr-1 text-pink-400" fill="#F472B6" />
-                      {new Date(wish.time.seconds * 1000).toLocaleDateString('en-US', { 
-                        year: 'numeric', 
-                        month: 'short', 
-                        day: 'numeric' 
-                      })}
+                      {wish.time ? (
+                        new Date(wish.time.seconds * 1000).toLocaleDateString('en-US', { 
+                          year: 'numeric', 
+                          month: 'short', 
+                          day: 'numeric' 
+                        })
+                      ) : (
+                        <span className="text-gray-500">Date not available</span>
+                      )}
                     </div>
                   </div>
                 ))
