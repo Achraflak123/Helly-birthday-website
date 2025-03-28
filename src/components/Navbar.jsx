@@ -1,9 +1,13 @@
 
 import { useState, useEffect } from "react";
+import { Menu, X } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const isMobile = useIsMobile();
   
   useEffect(() => {
     const handleScroll = () => {
@@ -32,6 +36,17 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const navItems = [
+    { name: "Home", href: "#home" },
+    { name: "Countdown", href: "#countdown" },
+    { name: "Gallery", href: "#gallery" },
+    { name: "Guestbook", href: "#guestbook" }
+  ];
+
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
+
   return (
     <nav 
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 py-4 ${
@@ -47,13 +62,9 @@ const Navbar = () => {
           </span>
         </div>
         
+        {/* Desktop Menu */}
         <div className="hidden md:flex space-x-6">
-          {[
-            { name: "Home", href: "#home" },
-            { name: "Countdown", href: "#countdown" },
-            { name: "Gallery", href: "#gallery" },
-            { name: "Guestbook", href: "#guestbook" }
-          ].map((item) => (
+          {navItems.map((item) => (
             <a 
               key={item.name}
               href={item.href}
@@ -72,7 +83,37 @@ const Navbar = () => {
             </a>
           ))}
         </div>
+
+        {/* Mobile Menu Button */}
+        <button 
+          className="md:hidden text-gray-700 focus:outline-none"
+          onClick={toggleMobileMenu}
+        >
+          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
       </div>
+
+      {/* Mobile Menu Dropdown */}
+      {mobileMenuOpen && (
+        <div className="md:hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-md shadow-lg py-4 px-4 transition-all duration-300 z-50">
+          <div className="flex flex-col space-y-4">
+            {navItems.map((item) => (
+              <a 
+                key={item.name}
+                href={item.href}
+                className={`font-medium py-2 transition-colors ${
+                  activeSection === item.href.substring(1) 
+                    ? "text-birthday-pink" 
+                    : "text-gray-700"
+                }`}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {item.name}
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
     </nav>
   );
 };

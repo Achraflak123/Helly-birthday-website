@@ -13,8 +13,16 @@ export default {
 	theme: {
 		container: {
 			center: true,
-			padding: '2rem',
+			padding: {
+				DEFAULT: '1rem',
+				sm: '1.5rem',
+				lg: '2rem'
+			},
 			screens: {
+				sm: '640px',
+				md: '768px',
+				lg: '1024px',
+				xl: '1280px',
 				'2xl': '1400px'
 			}
 		},
@@ -62,7 +70,13 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				// Birthday theme colors
+				'birthday-pink': '#FF719A',
+				'birthday-softPink': '#FFDEE2',
+				'birthday-purple': '#9b87f5',
+				'birthday-softPurple': '#E5DEFF',
+				'birthday-cream': '#FFE29F'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -96,6 +110,13 @@ export default {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'shimmer': 'shimmer 2s infinite linear',
+			},
+			fontFamily: {
+				sans: ['Poppins', 'sans-serif'],
+				serif: ['Playfair Display', 'serif']
+			},
+			backgroundImage: {
+				'gradient-celebration': 'linear-gradient(135deg, #FF719A 0%, #9b87f5 100%)',
 			}
 		}
 	},

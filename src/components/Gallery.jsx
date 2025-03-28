@@ -1,12 +1,14 @@
 
 import React, { useState } from 'react';
 import { Image, X } from 'lucide-react';
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Gallery = () => {
   // Placeholder for images - in a real implementation, you'd use actual images
   const placeholderImages = Array(6).fill('/placeholder.svg');
   
   const [selectedImage, setSelectedImage] = useState(null);
+  const isMobile = useIsMobile();
   
   const openModal = (index) => {
     setSelectedImage(index);
@@ -19,7 +21,7 @@ const Gallery = () => {
   };
 
   return (
-    <section id="gallery" className="py-20 relative overflow-hidden">
+    <section id="gallery" className="py-16 md:py-20 relative overflow-hidden">
       {/* Parallax background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="parallax-element absolute -top-40 left-1/5 w-72 h-72 rounded-full bg-purple-100 opacity-50 blur-3xl" data-speed="0.1"></div>
@@ -27,17 +29,17 @@ const Gallery = () => {
       </div>
       
       <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-16">
-          <div className="inline-block bg-pink-100 p-3 rounded-full mb-5">
-            <Image className="h-8 w-8 text-pink-500" />
+        <div className="text-center mb-12 md:mb-16">
+          <div className="inline-block bg-pink-100 p-3 rounded-full mb-4 sm:mb-5">
+            <Image className="h-6 w-6 sm:h-8 sm:w-8 text-pink-500" />
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800">Beautiful Memories</h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-gray-800">Beautiful Memories</h2>
+          <p className="text-base sm:text-xl text-gray-600 max-w-2xl mx-auto">
             A collection of our favorite moments with Hala over the years
           </p>
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
           {placeholderImages.map((image, index) => (
             <div 
               key={index}
@@ -45,7 +47,7 @@ const Gallery = () => {
               onClick={() => openModal(index)}
             >
               <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-pink-50 to-purple-50">
-                <Image className="h-16 w-16 text-gray-400 group-hover:text-pink-400 transition-colors duration-300" />
+                <Image className="h-12 w-12 sm:h-16 sm:w-16 text-gray-400 group-hover:text-pink-400 transition-colors duration-300" />
               </div>
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
                 <div className="p-4 w-full">
@@ -63,11 +65,11 @@ const Gallery = () => {
             onClick={closeModal}
           >
             <div 
-              className="relative max-w-4xl max-h-[90vh] bg-white rounded-lg overflow-hidden shadow-2xl transform transition-all duration-300"
+              className="relative max-w-4xl max-h-[90vh] w-full sm:w-auto bg-white rounded-lg overflow-hidden shadow-2xl transform transition-all duration-300"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex items-center justify-center h-full p-6 bg-gradient-to-br from-pink-50 to-purple-50">
-                <Image className="h-32 w-32 text-gray-400" />
+              <div className="flex items-center justify-center h-64 sm:h-full p-4 sm:p-6 bg-gradient-to-br from-pink-50 to-purple-50">
+                <Image className="h-24 w-24 sm:h-32 sm:w-32 text-gray-400" />
               </div>
               <button 
                 className="absolute top-4 right-4 bg-white/20 backdrop-blur-sm rounded-full p-2 text-white hover:bg-white/40 transition-colors"

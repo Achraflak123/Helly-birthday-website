@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { MessageSquare, SendHorizonal, Heart } from 'lucide-react';
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Guestbook = () => {
   const [name, setName] = useState('');
@@ -9,6 +10,7 @@ const Guestbook = () => {
     { name: 'Sarah', message: 'Happy birthday Hala! I hope your day is as special as you are!', time: new Date().toISOString() },
     { name: 'Mike', message: 'Wishing you a magical 21st birthday filled with wonderful surprises!', time: new Date().toISOString() }
   ]);
+  const isMobile = useIsMobile();
   
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,7 +22,7 @@ const Guestbook = () => {
   };
 
   return (
-    <section id="guestbook" className="py-20 relative overflow-hidden">
+    <section id="guestbook" className="py-16 md:py-20 relative overflow-hidden">
       {/* Gradient background */}
       <div className="absolute inset-0 bg-gradient-to-b from-purple-50 to-pink-50"></div>
       
@@ -31,31 +33,31 @@ const Guestbook = () => {
       </div>
       
       {/* Decorative elements */}
-      <div className="absolute top-40 right-10 parallax-element" data-speed="-0.2">
+      <div className="absolute top-40 right-10 parallax-element hidden md:block" data-speed="-0.2">
         <Heart className="h-6 w-6 text-pink-400 opacity-60" fill="#F9A8D4" />
       </div>
-      <div className="absolute bottom-40 left-10 parallax-element" data-speed="0.2">
+      <div className="absolute bottom-40 left-10 parallax-element hidden md:block" data-speed="0.2">
         <Heart className="h-8 w-8 text-purple-400 opacity-60" fill="#C4B5FD" />
       </div>
       
       <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-16">
-          <div className="inline-block bg-white/50 p-3 rounded-full shadow-md mb-5">
-            <MessageSquare className="h-8 w-8 text-purple-500" />
+        <div className="text-center mb-12 md:mb-16">
+          <div className="inline-block bg-white/50 p-3 rounded-full shadow-md mb-4 sm:mb-5">
+            <MessageSquare className="h-6 w-6 sm:h-8 sm:w-8 text-purple-500" />
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800">Birthday Wishes</h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-gray-800">Birthday Wishes</h2>
+          <p className="text-base sm:text-xl text-gray-600 max-w-2xl mx-auto">
             Leave a special message for Hala's 21st birthday
           </p>
         </div>
         
-        <div className="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10">
-          <div className="glass-effect p-8 rounded-2xl shadow-xl border border-white/20">
-            <h3 className="text-2xl font-bold mb-6 text-gray-800 flex items-center">
+        <div className="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10">
+          <div className="glass-effect p-6 sm:p-8 rounded-2xl shadow-xl border border-white/20">
+            <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-800 flex items-center">
               <span>Leave Your Wish</span>
               <Heart className="h-5 w-5 ml-2 text-pink-500" fill="#EC4899" />
             </h3>
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
               <div>
                 <label htmlFor="name" className="block text-gray-700 mb-2 font-medium">Your Name</label>
                 <input
@@ -63,7 +65,7 @@ const Guestbook = () => {
                   id="name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none transition shadow-sm"
+                  className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none transition shadow-sm"
                   placeholder="Enter your name"
                   required
                 />
@@ -75,7 +77,7 @@ const Guestbook = () => {
                   id="message"
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none transition h-32 resize-none shadow-sm"
+                  className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none transition h-24 sm:h-32 resize-none shadow-sm"
                   placeholder="Write your birthday wish here..."
                   required
                 ></textarea>
@@ -83,7 +85,7 @@ const Guestbook = () => {
               
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-pink-500 to-purple-500 text-white font-bold py-3 px-6 rounded-lg hover:opacity-90 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1 flex items-center justify-center"
+                className="w-full bg-gradient-to-r from-pink-500 to-purple-500 text-white font-bold py-2 sm:py-3 px-4 sm:px-6 rounded-lg hover:opacity-90 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1 flex items-center justify-center"
               >
                 <span>Send Birthday Wish</span>
                 <SendHorizonal className="ml-2 h-5 w-5" />
@@ -92,15 +94,15 @@ const Guestbook = () => {
           </div>
           
           <div>
-            <h3 className="text-2xl font-bold mb-6 text-gray-800 flex items-center">
+            <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-800 flex items-center">
               <span>Birthday Wishes</span>
               <MessageSquare className="h-5 w-5 ml-2 text-purple-500" />
             </h3>
-            <div className="space-y-5 max-h-[500px] overflow-y-auto pr-2 wishing-well">
+            <div className="space-y-3 sm:space-y-5 max-h-[400px] sm:max-h-[500px] overflow-y-auto pr-2 wishing-well">
               {wishes.map((wish, index) => (
                 <div 
                   key={index} 
-                  className="glass-effect p-5 rounded-xl shadow-md border border-white/20 transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                  className="glass-effect p-4 sm:p-5 rounded-xl shadow-md border border-white/20 transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
                 >
                   <div className="font-bold text-purple-600">{wish.name}</div>
                   <p className="text-gray-700 my-2">{wish.message}</p>

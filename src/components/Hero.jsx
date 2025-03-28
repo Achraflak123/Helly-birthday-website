@@ -1,9 +1,11 @@
 
 import { Heart, PartyPopper } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Hero = () => {
   const [mounted, setMounted] = useState(false);
+  const isMobile = useIsMobile();
   
   useEffect(() => {
     setMounted(true);
@@ -43,7 +45,7 @@ const Hero = () => {
       
       {/* Floating particles */}
       <div className="absolute inset-0 pointer-events-none">
-        {Array.from({length: 20}).map((_, i) => (
+        {Array.from({length: isMobile ? 10 : 20}).map((_, i) => (
           <div 
             key={i}
             className="absolute rounded-full bg-white opacity-20"
@@ -94,10 +96,10 @@ const Hero = () => {
         </div>
         
         {/* Enhanced decorative elements */}
-        <div className="absolute top-10 left-10 w-16 h-16 parallax-element" data-speed="-0.4">
+        <div className="absolute top-10 left-10 w-16 h-16 parallax-element hidden md:block" data-speed="-0.4">
           <img src="/placeholder.svg" alt="Decorative" className="w-full h-full opacity-50 animate-pulse" />
         </div>
-        <div className="absolute bottom-10 right-10 w-20 h-20 parallax-element" data-speed="-0.3">
+        <div className="absolute bottom-10 right-10 w-20 h-20 parallax-element hidden md:block" data-speed="-0.3">
           <img src="/placeholder.svg" alt="Decorative" className="w-full h-full opacity-50 animate-pulse" />
         </div>
       </div>
