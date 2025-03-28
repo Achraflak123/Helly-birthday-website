@@ -1,19 +1,36 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { serverTimestamp } from 'firebase/firestore';
 import { MessageSquare, SendHorizonal, Heart } from 'lucide-react';
 import { useIsMobile } from "@/hooks/use-mobile";
+import { db, collection, addDoc, onSnapshot, orderBy, query } from "@/firebase"; // Import serverTimestamp
 
 const Guestbook = () => {
   const [name, setName] = useState('');
   const [message, setMessage] = useState('');
-  const [wishes, setWishes] = useState([
-  ]);
+  const [wishes, setWishes] = useState([]);
   const isMobile = useIsMobile();
-  
-  const handleSubmit = (e) => {
+
+  // Fetch wishes in descending order by timestamp
+  useEffect(() => {
+    const wishesCollection = collection(db, "wishes");
+    const q = query(wishesCollection, orderBy("time", "desc"));
+    
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      setWishes(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+    });
+    
+    return () => unsubscribe();
+  }, []);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (name.trim() && message.trim()) {
-      setWishes([...wishes, { name, message, time: new Date().toISOString() }]);
+      // Save the wish with server-side timestamp
+      await addDoc(collection(db, "wishes"), {
+        name,
+        message,
+        time: serverTimestamp(),
+      });
       setName('');
       setMessage('');
     }
@@ -94,23 +111,27 @@ const Guestbook = () => {
               <MessageSquare className="h-5 w-5 ml-2 text-purple-500" />
             </h3>
             <div className="space-y-3 sm:space-y-5 max-h-[400px] sm:max-h-[500px] overflow-y-auto pr-2 wishing-well">
-              {wishes.map((wish, index) => (
-                <div 
-                  key={index} 
-                  className="glass-effect p-4 sm:p-5 rounded-xl shadow-md border border-white/20 transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
-                >
-                  <div className="font-bold text-purple-600">{wish.name}</div>
-                  <p className="text-gray-700 my-2">{wish.message}</p>
-                  <div className="text-xs text-gray-500 flex items-center">
-                    <Heart className="h-3 w-3 mr-1 text-pink-400" fill="#F472B6" />
-                    {new Date(wish.time).toLocaleDateString('en-US', { 
-                      year: 'numeric', 
-                      month: 'short', 
-                      day: 'numeric' 
-                    })}
+              {wishes.length === 0 ? (
+                <p className="text-gray-500">No wishes yet. Be the first to send one!</p>
+              ) : (
+                wishes.map((wish) => (
+                  <div 
+                    key={wish.id} 
+                    className="glass-effect p-4 sm:p-5 rounded-xl shadow-md border border-white/20 transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                  >
+                    <div className="font-bold text-purple-600">{wish.name}</div>
+                    <p className="text-gray-700 my-2">{wish.message}</p>
+                    <div className="text-xs text-gray-500 flex items-center">
+                      <Heart className="h-3 w-3 mr-1 text-pink-400" fill="#F472B6" />
+                      {new Date(wish.time.seconds * 1000).toLocaleDateString('en-US', { 
+                        year: 'numeric', 
+                        month: 'short', 
+                        day: 'numeric' 
+                      })}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))
+              )}
             </div>
             <hr />
           </div>
