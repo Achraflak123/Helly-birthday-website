@@ -1,73 +1,108 @@
 
-import React, { useEffect } from 'react';
-import { PartyPopper } from 'lucide-react';
+import { Heart, PartyPopper } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const Hero = () => {
+  const [mounted, setMounted] = useState(false);
+  
   useEffect(() => {
-    // Simple confetti effect
-    const createConfetti = () => {
-      const confettiColors = ['#EC4899', '#F472B6', '#FBCFE8', '#9333EA', '#FFB6C1'];
-      const container = document.getElementById('confetti-container');
-      if (!container) return;
-      
+    setMounted(true);
+    
+    // Create confetti effect
+    const colors = ["#FF719A", "#FFE29F", "#9b87f5", "#FFA99F"];
+    const confettiContainer = document.getElementById("confetti-container");
+    
+    if (confettiContainer) {
       for (let i = 0; i < 50; i++) {
         setTimeout(() => {
-          const confetti = document.createElement('div');
-          confetti.className = 'absolute w-2 h-6 opacity-80';
-          confetti.style.backgroundColor = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+          const confetti = document.createElement("div");
+          confetti.classList.add("confetti-piece");
           confetti.style.left = `${Math.random() * 100}%`;
-          confetti.style.top = '-20px';
-          confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
-          confetti.style.animation = `fall ${3 + Math.random() * 3}s linear forwards`;
-          container.appendChild(confetti);
+          confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+          confetti.style.animationDuration = `${3 + Math.random() * 5}s`;
+          confetti.style.animationDelay = `${Math.random() * 2}s`;
+          confettiContainer.appendChild(confetti);
           
-          setTimeout(() => confetti.remove(), 6000);
+          // Clean up confetti after animation
+          setTimeout(() => {
+            confetti.remove();
+          }, 8000);
         }, i * 100);
       }
+    }
+    
+    // Create parallax scroll effect
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const parallaxElements = document.querySelectorAll('.parallax-element');
+      
+      parallaxElements.forEach(element => {
+        const speed = element.getAttribute('data-speed') || 0.2;
+        element.style.transform = `translateY(${scrollY * speed}px)`;
+      });
     };
     
-    createConfetti();
+    window.addEventListener('scroll', handleScroll);
     
-    // Add keyframes for the falling animation
-    const style = document.createElement('style');
-    style.textContent = `
-      @keyframes fall {
-        from { transform: translateY(0) rotate(0); }
-        to { transform: translateY(100vh) rotate(720deg); }
-      }
-    `;
-    document.head.appendChild(style);
-    
-    return () => document.head.removeChild(style);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
-
+  
   return (
-    <section id="home" className="relative pt-32 pb-20 min-h-screen flex items-center">
-      <div id="confetti-container" className="absolute inset-0 overflow-hidden pointer-events-none"></div>
-      <div className="container mx-auto px-4 text-center">
-        <h1 className="text-5xl md:text-7xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-500">
-          Happy 21st Birthday, Hala!
+    <section id="home" className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden">
+      {/* Parallax background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="parallax-element absolute -top-20 -left-20 w-64 h-64 rounded-full bg-birthday-softPink opacity-30 blur-3xl" data-speed="-0.2"></div>
+        <div className="parallax-element absolute top-1/3 -right-32 w-96 h-96 rounded-full bg-birthday-softPurple opacity-20 blur-3xl" data-speed="0.3"></div>
+        <div className="parallax-element absolute -bottom-20 left-1/4 w-72 h-72 rounded-full bg-birthday-cream opacity-25 blur-3xl" data-speed="0.15"></div>
+      </div>
+      
+      <div id="confetti-container" className="absolute inset-0 pointer-events-none"></div>
+      
+      <div className={`max-w-5xl mx-auto text-center transition-opacity duration-1000 relative z-10 ${mounted ? 'opacity-100' : 'opacity-0'}`}>
+        <div className="parallax-element inline-block bg-birthday-softPink p-3 rounded-full mb-6 animate-float" data-speed="-0.1">
+          <Heart className="h-8 w-8 text-birthday-pink" fill="#FF719A" />
+        </div>
+        
+        <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold mb-6 text-gray-800 relative">
+          <span className="parallax-element" data-speed="0.05">Happy 21st Birthday,{" "}</span>
+          <span className="parallax-element text-birthday-pink inline-block animate-wiggle" data-speed="0.1">Hala!</span>
         </h1>
-        <p className="text-xl md:text-2xl text-gray-700 max-w-3xl mx-auto mb-10">
-          March 28, 2025 marks the day our amazing friend turns 21! 
-          This website is a collection of memories and wishes just for you.
+        
+        <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto mb-8 parallax-element" data-speed="0.08">
+          Welcome to your special celebration website, created with love for your 21st birthday.
         </p>
-        <div className="flex flex-col sm:flex-row justify-center gap-4">
+        
+        <div className="flex flex-col sm:flex-row gap-4 justify-center parallax-element" data-speed="0.05">
           <a 
             href="#countdown" 
-            className="bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-6 rounded-full transition-colors flex items-center justify-center"
+            className="birthday-button group"
           >
-            <span>See the Countdown</span>
-            <PartyPopper className="ml-2 h-5 w-5" />
+            <span className="flex items-center justify-center">
+              <span>Countdown to the Big Day</span>
+              <PartyPopper className="ml-2 h-5 w-5 group-hover:rotate-12 transition-transform" />
+            </span>
           </a>
+          
           <a 
-            href="#guestbook" 
-            className="bg-purple-500 hover:bg-purple-600 text-white font-bold py-3 px-6 rounded-full transition-colors"
+            href="#gallery" 
+            className="px-6 py-3 rounded-full border border-birthday-pink text-birthday-pink hover:bg-birthday-softPink transition-colors font-medium transform hover:-translate-y-1 hover:scale-105 duration-300"
           >
-            Leave a Wish
+            View Memories
           </a>
         </div>
+        
+        {/* Added decorative elements */}
+        <div className="absolute top-10 left-10 w-16 h-16 parallax-element" data-speed="-0.4">
+          <img src="/placeholder.svg" alt="Decorative" className="w-full h-full opacity-50" />
+        </div>
+        <div className="absolute bottom-10 right-10 w-20 h-20 parallax-element" data-speed="-0.3">
+          <img src="/placeholder.svg" alt="Decorative" className="w-full h-full opacity-50" />
+        </div>
       </div>
+      
+      <div className="absolute bottom-0 left-0 w-full h-24 section-divider"></div>
     </section>
   );
 };
