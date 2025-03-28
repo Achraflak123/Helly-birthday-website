@@ -30,37 +30,37 @@ const Hero = () => {
         }, i * 100);
       }
     }
-    
-    // Create parallax scroll effect
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const parallaxElements = document.querySelectorAll('.parallax-element');
-      
-      parallaxElements.forEach(element => {
-        const speed = element.getAttribute('data-speed') || 0.2;
-        element.style.transform = `translateY(${scrollY * speed}px)`;
-      });
-    };
-    
-    window.addEventListener('scroll', handleScroll);
-    
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
   }, []);
   
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden">
-      {/* Parallax background elements */}
+      {/* Enhanced parallax background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="parallax-element absolute -top-20 -left-20 w-64 h-64 rounded-full bg-birthday-softPink opacity-30 blur-3xl" data-speed="-0.2"></div>
         <div className="parallax-element absolute top-1/3 -right-32 w-96 h-96 rounded-full bg-birthday-softPurple opacity-20 blur-3xl" data-speed="0.3"></div>
         <div className="parallax-element absolute -bottom-20 left-1/4 w-72 h-72 rounded-full bg-birthday-cream opacity-25 blur-3xl" data-speed="0.15"></div>
       </div>
       
+      {/* Floating particles */}
+      <div className="absolute inset-0 pointer-events-none">
+        {Array.from({length: 20}).map((_, i) => (
+          <div 
+            key={i}
+            className="absolute rounded-full bg-white opacity-20"
+            style={{
+              width: `${Math.random() * 10 + 5}px`,
+              height: `${Math.random() * 10 + 5}px`,
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+              animation: `float ${Math.random() * 10 + 5}s infinite ease-in-out alternate-reverse`
+            }}
+          ></div>
+        ))}
+      </div>
+      
       <div id="confetti-container" className="absolute inset-0 pointer-events-none"></div>
       
-      <div className={`max-w-5xl mx-auto text-center transition-opacity duration-1000 relative z-10 ${mounted ? 'opacity-100' : 'opacity-0'}`}>
+      <div className={`max-w-5xl mx-auto text-center transition-all duration-1000 relative z-10 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         <div className="parallax-element inline-block bg-birthday-softPink p-3 rounded-full mb-6 animate-float" data-speed="-0.1">
           <Heart className="h-8 w-8 text-birthday-pink" fill="#FF719A" />
         </div>
@@ -93,12 +93,12 @@ const Hero = () => {
           </a>
         </div>
         
-        {/* Added decorative elements */}
+        {/* Enhanced decorative elements */}
         <div className="absolute top-10 left-10 w-16 h-16 parallax-element" data-speed="-0.4">
-          <img src="/placeholder.svg" alt="Decorative" className="w-full h-full opacity-50" />
+          <img src="/placeholder.svg" alt="Decorative" className="w-full h-full opacity-50 animate-pulse" />
         </div>
         <div className="absolute bottom-10 right-10 w-20 h-20 parallax-element" data-speed="-0.3">
-          <img src="/placeholder.svg" alt="Decorative" className="w-full h-full opacity-50" />
+          <img src="/placeholder.svg" alt="Decorative" className="w-full h-full opacity-50 animate-pulse" />
         </div>
       </div>
       

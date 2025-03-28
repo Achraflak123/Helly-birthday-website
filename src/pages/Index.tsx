@@ -14,10 +14,11 @@ const Index = () => {
       const scrollY = window.scrollY;
       const parallaxElements = document.querySelectorAll('.parallax-element');
       
-      parallaxElements.forEach(element => {
-        const speed = element.getAttribute('data-speed') || 0.2;
+      parallaxElements.forEach((element) => {
+        const htmlElement = element as HTMLElement;
+        const speed = element.getAttribute('data-speed') || '0.2';
         // Apply transform based on scroll position multiplied by the speed factor
-        element.style.transform = `translateY(${scrollY * parseFloat(speed)}px)`;
+        htmlElement.style.transform = `translateY(${scrollY * parseFloat(speed)}px)`;
       });
       
       // Implement scroll spy for navigation
@@ -25,8 +26,9 @@ const Index = () => {
       const navLinks = document.querySelectorAll('.nav-link');
       
       sections.forEach(section => {
-        const sectionTop = section.offsetTop - 100;
-        const sectionHeight = section.offsetHeight;
+        const htmlSection = section as HTMLElement;
+        const sectionTop = htmlSection.offsetTop - 100;
+        const sectionHeight = htmlSection.offsetHeight;
         const sectionId = section.getAttribute('id');
         
         if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
@@ -51,7 +53,7 @@ const Index = () => {
   }, []);
   
   return (
-    <div className="min-h-screen relative">
+    <div className="min-h-screen relative bg-background">
       {/* Floating decorative elements */}
       <div className="fixed top-20 left-5 w-12 h-12 z-0 opacity-30 parallax-slow">
         <img src="/placeholder.svg" alt="Decoration" className="w-full h-full" />
@@ -62,6 +64,9 @@ const Index = () => {
       <div className="fixed bottom-32 left-10 w-14 h-14 z-0 opacity-25 parallax-fast">
         <img src="/placeholder.svg" alt="Decoration" className="w-full h-full" />
       </div>
+      
+      {/* Enhanced background pattern */}
+      <div className="fixed inset-0 bg-[radial-gradient(#ff719a_1px,transparent_1px)] bg-[size:20px_20px] opacity-5 pointer-events-none"></div>
       
       <Navbar />
       <Hero />

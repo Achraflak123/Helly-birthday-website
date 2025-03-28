@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { MessageSquare } from 'lucide-react';
+import { MessageSquare, SendHorizonal, Heart } from 'lucide-react';
 
 const Guestbook = () => {
   const [name, setName] = useState('');
@@ -20,10 +20,29 @@ const Guestbook = () => {
   };
 
   return (
-    <section id="guestbook" className="py-20 bg-gradient-to-b from-purple-50 to-pink-50">
-      <div className="container mx-auto px-4">
+    <section id="guestbook" className="py-20 relative overflow-hidden">
+      {/* Gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-purple-50 to-pink-50"></div>
+      
+      {/* Parallax decorative elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="parallax-element absolute top-20 left-20 w-64 h-64 rounded-full bg-pink-100 opacity-40 blur-3xl" data-speed="0.1"></div>
+        <div className="parallax-element absolute -bottom-20 right-20 w-80 h-80 rounded-full bg-purple-100 opacity-30 blur-3xl" data-speed="0.15"></div>
+      </div>
+      
+      {/* Decorative elements */}
+      <div className="absolute top-40 right-10 parallax-element" data-speed="-0.2">
+        <Heart className="h-6 w-6 text-pink-400 opacity-60" fill="#F9A8D4" />
+      </div>
+      <div className="absolute bottom-40 left-10 parallax-element" data-speed="0.2">
+        <Heart className="h-8 w-8 text-purple-400 opacity-60" fill="#C4B5FD" />
+      </div>
+      
+      <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
-          <MessageSquare className="h-12 w-12 mx-auto text-purple-500 mb-4" />
+          <div className="inline-block bg-white/50 p-3 rounded-full shadow-md mb-5">
+            <MessageSquare className="h-8 w-8 text-purple-500" />
+          </div>
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800">Birthday Wishes</h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Leave a special message for Hala's 21st birthday
@@ -31,29 +50,32 @@ const Guestbook = () => {
         </div>
         
         <div className="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10">
-          <div>
-            <h3 className="text-2xl font-bold mb-6 text-gray-800">Leave Your Wish</h3>
+          <div className="glass-effect p-8 rounded-2xl shadow-xl border border-white/20">
+            <h3 className="text-2xl font-bold mb-6 text-gray-800 flex items-center">
+              <span>Leave Your Wish</span>
+              <Heart className="h-5 w-5 ml-2 text-pink-500" fill="#EC4899" />
+            </h3>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label htmlFor="name" className="block text-gray-700 mb-2">Your Name</label>
+                <label htmlFor="name" className="block text-gray-700 mb-2 font-medium">Your Name</label>
                 <input
                   type="text"
                   id="name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none transition"
+                  className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none transition shadow-sm"
                   placeholder="Enter your name"
                   required
                 />
               </div>
               
               <div>
-                <label htmlFor="message" className="block text-gray-700 mb-2">Your Message</label>
+                <label htmlFor="message" className="block text-gray-700 mb-2 font-medium">Your Message</label>
                 <textarea
                   id="message"
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none transition h-32 resize-none"
+                  className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none transition h-32 resize-none shadow-sm"
                   placeholder="Write your birthday wish here..."
                   required
                 ></textarea>
@@ -61,21 +83,29 @@ const Guestbook = () => {
               
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-pink-500 to-purple-500 text-white font-bold py-3 px-6 rounded-lg hover:opacity-90 transition-opacity"
+                className="w-full bg-gradient-to-r from-pink-500 to-purple-500 text-white font-bold py-3 px-6 rounded-lg hover:opacity-90 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1 flex items-center justify-center"
               >
-                Send Birthday Wish
+                <span>Send Birthday Wish</span>
+                <SendHorizonal className="ml-2 h-5 w-5" />
               </button>
             </form>
           </div>
           
           <div>
-            <h3 className="text-2xl font-bold mb-6 text-gray-800">Birthday Wishes</h3>
-            <div className="space-y-4 max-h-96 overflow-y-auto pr-2">
+            <h3 className="text-2xl font-bold mb-6 text-gray-800 flex items-center">
+              <span>Birthday Wishes</span>
+              <MessageSquare className="h-5 w-5 ml-2 text-purple-500" />
+            </h3>
+            <div className="space-y-5 max-h-[500px] overflow-y-auto pr-2 wishing-well">
               {wishes.map((wish, index) => (
-                <div key={index} className="bg-white p-4 rounded-lg shadow-md">
+                <div 
+                  key={index} 
+                  className="glass-effect p-5 rounded-xl shadow-md border border-white/20 transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                >
                   <div className="font-bold text-purple-600">{wish.name}</div>
                   <p className="text-gray-700 my-2">{wish.message}</p>
-                  <div className="text-xs text-gray-500">
+                  <div className="text-xs text-gray-500 flex items-center">
+                    <Heart className="h-3 w-3 mr-1 text-pink-400" fill="#F472B6" />
                     {new Date(wish.time).toLocaleDateString('en-US', { 
                       year: 'numeric', 
                       month: 'short', 
