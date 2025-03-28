@@ -33,15 +33,16 @@ const Footer = () => {
             <Heart className="h-8 w-8 text-birthday-pink animate-pulse" fill="#FF719A" />
           </div>
           
-          <h3 className="text-2xl font-serif font-medium mb-3">Thanks for celebrating!</h3>
-          <p className="text-gray-400 mb-8 max-w-md mx-auto">
+          <h3 className="text-2xl font-serif font-medium mb-3">Thanks for celebrating Hala's Birthday Together!</h3>
+          <p style={{ marginTop: "1rem" }} className="text-gray-400 mb-8 max-w-md mx-auto">
             A special gift for Hala Sentissi's 21st birthday - March 28, 2025. 
             May your special day be filled with love, joy, and wonderful memories.
           </p>
         </div>
         
         <div className="mt-8">
-          <button 
+          <button
+            style={{ margin: "1em", paddingTop: "1rem", textAlign: "center", verticalAlign: "middle", paddingInline: "1.5rem" }}
             onClick={scrollToTop}
             className="inline-flex items-center justify-center py-3 px-6 rounded-full bg-gray-700 hover:bg-gray-600 transition-all duration-300 shadow-md hover:shadow-lg group"
           >

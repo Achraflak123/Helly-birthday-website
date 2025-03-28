@@ -39,7 +39,7 @@ const CountdownTimer = () => {
   );
 
   return (
-    <section id="countdown" className="py-16 md:py-20 relative overflow-hidden">
+    <section style={{ paddingTop: "5rem" }} id="countdown" className="py-16 md:py-20 relative overflow-hidden">
       {/* Gradient background */}
       <div className="absolute inset-0 bg-gradient-to-r from-pink-100 to-purple-100"></div>
       
@@ -64,11 +64,11 @@ const CountdownTimer = () => {
           </div>
         </div>
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 text-gray-800">Countdown to the Big Day</h2>
-        <p className="text-base sm:text-xl text-gray-600 max-w-2xl mx-auto mb-8 sm:mb-12">
+        <p style={{ marginBottom: "1rem" }} className="text-base sm:text-xl text-gray-600 max-w-2xl mx-auto mb-8 sm:mb-12">
           The celebration begins on March 28, 2025
         </p>
         
-        <div className="flex justify-center space-x-2 sm:space-x-4 md:space-x-8">
+        <div style={{ gap: "1.4rem" }} className="flex justify-center space-x-2 sm:space-x-4 md:space-x-8">
           <CountItem value={timeLeft.days} label="Days" />
           <CountItem value={timeLeft.hours} label="Hours" />
           <CountItem value={timeLeft.minutes} label="Minutes" />

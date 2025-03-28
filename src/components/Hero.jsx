@@ -35,7 +35,7 @@ const Hero = () => {
   }, []);
   
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden">
+    <section style={{ padding: "4rem" }} id="home" className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden">
       {/* Enhanced parallax background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="parallax-element absolute -top-20 -left-20 w-64 h-64 rounded-full bg-birthday-softPink opacity-30 blur-3xl" data-speed="-0.2"></div>
@@ -69,14 +69,18 @@ const Hero = () => {
         
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold mb-6 text-gray-800 relative">
           <span className="parallax-element" data-speed="0.05">Happy 21st Birthday,{" "}</span>
-          <span className="parallax-element text-birthday-pink inline-block animate-wiggle" data-speed="0.1">Hala!</span>
+          <span style={{ color: "pink" }} className="transition-all duration-1000 parallax-element  inline-block animate-float text-pink-500" data-speed="-0.1">Hala!</span>
+          <br />
         </h1>
         
-        <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto mb-8 parallax-element" data-speed="0.08">
-          Welcome to your special celebration website, created with love for your 21st birthday.
+        <p style={{ width: "80vw", marginTop: "1rem" }} className="text-xl md:text-2xl text-gray-600 w-80 mx-auto mb-8 parallax-element" data-speed="0.08">
+          Welcome to your the special celebration website for Hala's 21st birthday! 🎉. Hala is a special person to
+          all of us here, that's why I wanted to celebrate this special celebration with something I enjoy, which
+          is creating this website for everybody to show her love and wish her a happy birthday. This website will
+          stay as a memory for Hala to look back on and remember the love and wishes she received on her special day.
         </p>
         
-        <div className="flex flex-col sm:flex-row gap-4 justify-center parallax-element" data-speed="0.05">
+        <div style={{ marginTop: "2rem" }} className="flex flex-col sm:flex-row gap-4 justify-center parallax-element mt-5" data-speed="0.05">
           <a 
             href="#countdown" 
             className="birthday-button group"

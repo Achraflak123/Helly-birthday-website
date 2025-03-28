@@ -7,8 +7,6 @@ const Guestbook = () => {
   const [name, setName] = useState('');
   const [message, setMessage] = useState('');
   const [wishes, setWishes] = useState([
-    { name: 'Sarah', message: 'Happy birthday Hala! I hope your day is as special as you are!', time: new Date().toISOString() },
-    { name: 'Mike', message: 'Wishing you a magical 21st birthday filled with wonderful surprises!', time: new Date().toISOString() }
   ]);
   const isMobile = useIsMobile();
   
@@ -22,7 +20,7 @@ const Guestbook = () => {
   };
 
   return (
-    <section id="guestbook" className="py-16 md:py-20 relative overflow-hidden">
+    <section style={{ marginTop: "2rem", paddingTop: "3rem" }} id="guestbook" className="py-16 md:py-20 relative overflow-hidden">
       {/* Gradient background */}
       <div className="absolute inset-0 bg-gradient-to-b from-purple-50 to-pink-50"></div>
       
@@ -42,19 +40,16 @@ const Guestbook = () => {
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-12 md:mb-16">
-          <div className="inline-block bg-white/50 p-3 rounded-full shadow-md mb-4 sm:mb-5">
-            <MessageSquare className="h-6 w-6 sm:h-8 sm:w-8 text-purple-500" />
-          </div>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-gray-800">Birthday Wishes</h2>
           <p className="text-base sm:text-xl text-gray-600 max-w-2xl mx-auto">
             Leave a special message for Hala's 21st birthday
           </p>
         </div>
         
-        <div className="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10">
+        <div style={{ marginTop: "1rem" }} className="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10">
           <div className="glass-effect p-6 sm:p-8 rounded-2xl shadow-xl border border-white/20">
             <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-800 flex items-center">
-              <span>Leave Your Wish</span>
+              <span>Leave Your Message</span>
               <Heart className="h-5 w-5 ml-2 text-pink-500" fill="#EC4899" />
             </h3>
             <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
@@ -93,9 +88,9 @@ const Guestbook = () => {
             </form>
           </div>
           
-          <div>
+          <div style={{ marginTop: "3rem" }}>
             <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-800 flex items-center">
-              <span>Birthday Wishes</span>
+              <span>All Birthday Wishes</span>
               <MessageSquare className="h-5 w-5 ml-2 text-purple-500" />
             </h3>
             <div className="space-y-3 sm:space-y-5 max-h-[400px] sm:max-h-[500px] overflow-y-auto pr-2 wishing-well">
@@ -117,6 +112,7 @@ const Guestbook = () => {
                 </div>
               ))}
             </div>
+            <hr />
           </div>
         </div>
       </div>
