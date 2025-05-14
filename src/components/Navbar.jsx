@@ -58,7 +58,7 @@ const Navbar = () => {
       <div className="container mx-auto px-4 flex justify-between items-center">
         <div className="font-serif text-xl font-bold">
           <span className="bg-gradient-to-r from-birthday-pink to-birthday-purple bg-clip-text text-transparent">
-            Hala's <span style={{ color: "purple" }} className="text-birthday-purple">21</span><sup>st</sup> Birthday
+            Helly's <span style={{ color: "purple" }} className="text-birthday-purple">2O</span><sup>TH</sup> Birthday
           </span>
         </div>
 

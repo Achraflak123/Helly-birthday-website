@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import Hero from '@/components/Hero';
 import CountdownTimer from '@/components/CountdownTimer';
@@ -54,15 +53,31 @@ const Index = () => {
   
   return (
     <div className="min-h-screen relative bg-background">
-      {/* Floating decorative elements */}
-      <div className="fixed top-20 left-5 w-12 h-12 z-0 opacity-30 parallax-slow">
-        <img src="/placeholder.svg" alt="Decoration" className="w-full h-full" />
-      </div>
-      <div className="fixed top-40 right-10 w-16 h-16 z-0 opacity-20 parallax-medium">
-        <img src="/placeholder.svg" alt="Decoration" className="w-full h-full" />
-      </div>
-      <div className="fixed bottom-32 left-10 w-14 h-14 z-0 opacity-25 parallax-fast">
-        <img src="/placeholder.svg" alt="Decoration" className="w-full h-full" />
+      {/* Floating Decorative Elements - Now with Tailwind animations */}
+      <div className="fixed inset-0 pointer-events-none z-10">
+        {/* Basketball */}
+        <img 
+          src="/theme/basketball-icon.svg" 
+          className="absolute w-[60px] opacity-80 top-[20%] left-[10%] animate-float parallax-element will-change-transform" 
+          alt="Basketball"
+          data-speed="0.05"
+        />
+        
+        {/* Anime Sparkle */}
+        <img 
+          src="/theme/anime-sparkle.svg" 
+          className="absolute w-[40px] opacity-80 top-[70%] right-[15%] animate-float-delay-1 parallax-element will-change-transform" 
+          alt="Sparkle"
+          data-speed="0.03"
+        />
+        
+        {/* Curry Chibi */}
+        <img 
+          src="/theme/curry-chibi.svg" 
+          className="absolute w-[50px] opacity-80 bottom-[10%] left-[50%] animate-float-delay-2 parallax-element will-change-transform" 
+          alt="Chibi Curry"
+          data-speed="0.07"
+        />
       </div>
       
       {/* Enhanced background pattern */}

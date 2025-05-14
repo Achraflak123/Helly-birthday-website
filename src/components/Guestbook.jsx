@@ -77,7 +77,7 @@ const Guestbook = () => {
         <div className="text-center mb-12 md:mb-16">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-gray-800">Birthday Wishes</h2>
           <p className="text-base sm:text-xl text-gray-600 max-w-2xl mx-auto">
-            Leave a special message for Hala's 21st birthday
+            Leave a special message for Helly's 20th birthday 
           </p>
         </div>
         

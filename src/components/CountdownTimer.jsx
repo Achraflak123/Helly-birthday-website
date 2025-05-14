@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { CalendarDays, Star, Sparkles } from 'lucide-react';
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -8,11 +7,12 @@ const CountdownTimer = () => {
   const isMobile = useIsMobile();
   
   useEffect(() => {
-    const birthdate = new Date('March 28, 2025 00:00:00').getTime();
+    // May 16, 2025 00:00 China Time (UTC+8)
+    const targetDate = new Date("2025-05-16T00:00:00+08:00").getTime();
     
     const calculateTimeLeft = () => {
       const now = new Date().getTime();
-      const difference = birthdate - now;
+      const difference = targetDate - now;
       
       if (difference > 0) {
         setTimeLeft({
@@ -32,7 +32,9 @@ const CountdownTimer = () => {
   const CountItem = ({ value, label }) => (
     <div className="flex flex-col items-center">
       <div className="glass-effect rounded-lg shadow-lg p-2 sm:p-4 w-16 sm:w-20 md:w-28 h-16 sm:h-20 md:h-28 flex items-center justify-center border border-white/20 transform hover:scale-105 transition-transform duration-300">
-        <span className="text-xl sm:text-3xl md:text-5xl font-bold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">{value}</span>
+        <span className="text-xl sm:text-3xl md:text-5xl font-bold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
+          {value}
+        </span>
       </div>
       <span className="mt-2 text-sm sm:text-base text-gray-700 font-medium">{label}</span>
     </div>
@@ -63,9 +65,11 @@ const CountdownTimer = () => {
             <CalendarDays className="h-8 w-8 sm:h-12 sm:w-12 text-pink-500" />
           </div>
         </div>
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 text-gray-800">Countdown to the Big Day</h2>
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 text-gray-800">
+          Countdown to the Big Day
+        </h2>
         <p style={{ marginBottom: "1rem" }} className="text-base sm:text-xl text-gray-600 max-w-2xl mx-auto mb-8 sm:mb-12">
-          The celebration begins on March 28, 2025
+          The celebration begins on May 16, 2025
         </p>
         
         <div style={{ gap: "1.4rem" }} className="flex justify-center space-x-2 sm:space-x-4 md:space-x-8">

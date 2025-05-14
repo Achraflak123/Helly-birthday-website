@@ -121,4 +121,18 @@ export default {
 		}
 	},
 	plugins: [require("tailwindcss-animate")],
+	// Inside theme.extend {...}
+keyframes: {
+  // ... your existing keyframes ...
+  float: {
+    '0%, 100%': { transform: 'translateY(0)' },
+    '50%': { transform: 'translateY(-20px)' },
+  },
+},
+animation: {
+  // ... your existing animations ...
+  float: 'float 6s ease-in-out infinite',
+  'float-delay-1': 'float 6s ease-in-out infinite 1s',
+  'float-delay-2': 'float 6s ease-in-out infinite 2s',
+},
 } satisfies Config;

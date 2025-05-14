@@ -33,9 +33,9 @@ const Footer = () => {
             <Heart className="h-8 w-8 text-birthday-pink animate-pulse" fill="#FF719A" />
           </div>
           
-          <h3 className="text-2xl font-serif font-medium mb-3">Thanks for celebrating Hala's Birthday Together!</h3>
+          <h3 className="text-2xl font-serif font-medium mb-3">Thanks for celebrating Helly's Birthday Together!</h3>
           <p style={{ marginTop: "1rem" }} className="text-gray-400 mb-8 max-w-md mx-auto">
-            A special gift for Hala Sentissi's 21st birthday - March 28, 2025. 
+            A special gift for Helly's 20th birthday - May 16th, 2025. 
             May your special day be filled with love, joy, and wonderful memories.
           </p>
         </div>
@@ -52,7 +52,7 @@ const Footer = () => {
         </div>
         
         <div className="mt-12 pt-6 border-t border-gray-700 text-sm text-gray-500">
-          <p>© {new Date().getFullYear()} | Celebrating Hala's 21st Birthday</p>
+          <p>© {new Date().getFullYear()} | Celebrating Helly's 20th birthday</p>
         </div>
       </div>
     </footer>

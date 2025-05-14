@@ -5,16 +5,16 @@ import { useIsMobile } from "@/hooks/use-mobile";
 const Gallery = () => {
   // Images with captions
   const images = [
-    { src: "/images/TenthImage.jpg", caption: "Hala Performing in the Theatre" },
-    { src: "/images/FirstImage.jpg", caption: "Shooting Finished of the movie 'Terre des Anges'" },
-    { src: "/images/SecondImage.jpg", caption: "Hala's 19th Birthday" },
-    { src: "/images/ThirdImage.jpg", caption: "Hala Sharing Love in Casablanca" },
-    { src: "/images/FourthImage.jpg", caption: "First Time For Hala in China" },
-    { src: "/images/FifthImage.jpg", caption: "Hala's 20th Birthday On The Rooftop" },
-    { src: "/images/SixthImage.jpg", caption: "Hala Awarded the First Place in 'Foreign Cultural Trade'" },
-    { src: "/images/SeventhImage.jpg", caption: "Hala in Shanghai" },
-    { src: "/images/EighthImage.jpg", caption: "Hala and Oussama in the Class" },
-    { src: "/images/NinthImage.jpg", caption: "Hala During the 2025 New Year" },
+    { src: "/images/TenthImage.jpg", caption: "with her best friend " },
+    { src: "/images/FirstImage.jpg", caption: "trying some gay ahh filters on me (still look good tho) " },
+    { src: "/images/SecondImage.jpg", caption: "Helly's 20th birthday" },
+    { src: "/images/ThirdImage.jpg", caption: "Before she discovers the world's freakness  " },
+    { src: "/images/FourthImage.jpg", caption: "Said she doesn't like Pink ..." },
+    { src: "/images/FifthImage.jpg", caption: "Chiling and Killing(sharp night ngl)" },
+    { src: "/images/SixthImage.jpg", caption: "First time in my school" },
+    { src: "/images/SeventhImage.jpg", caption: "in my house" },
+    { src: "/images/EighthImage.jpg", caption: "so cute ..." },
+    { src: "/images/NinthImage.jpg", caption: "My favorite pic so far!" },
   ];
 
   const [selectedImage, setSelectedImage] = useState(null);
@@ -42,8 +42,9 @@ const Gallery = () => {
         <div className="text-center mb-12 md:mb-16">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-gray-800">Beautiful Memories</h2>
           <p style={{ marginBottom: "2rem" }} className="text-base sm:text-xl text-gray-600 max-w-2xl mx-auto">
-            A collection of the happy memories of Hala. The memories we've shared together are truly
-            special and unforgettable. Every image has a story behind it that we'll cherish forever.
+            Some dumb and cute photos of our beloved Helly... 
+    The weird faces, the basketball fails, the anime freakouts - 
+    all the chaotic moments that make her 100% Helly! 🏀🤪.
           </p>
         </div>
 
