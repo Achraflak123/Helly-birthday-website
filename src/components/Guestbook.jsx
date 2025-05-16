@@ -13,16 +13,20 @@ const Guestbook = () => {
 
   // Fetch wishes in descending order by timestamp
   useEffect(() => {
-    const wishesCollection = collection(db, "wishes");
-    const q = query(wishesCollection, orderBy("time", "desc"));
-    
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      console.log("Wishes updated:", snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))); // Log data when updated
-      setWishes(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
-    });
-    
-    return () => unsubscribe();
-  }, []);
+  const wishesCollection = collection(db, "wishes");
+  const q = query(wishesCollection, orderBy("time", "desc"));
+
+  const unsubscribe = onSnapshot(q, (snapshot) => {
+    const filtered = snapshot.docs
+      .map(doc => ({ id: doc.id, ...doc.data() }))
+      .filter(doc => doc.time); // <- Only include wishes that have timestamp
+
+    setWishes(filtered);
+  });
+
+  return () => unsubscribe();
+}, []);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
